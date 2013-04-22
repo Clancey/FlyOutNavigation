@@ -42,11 +42,14 @@ namespace Sample
 				}
 			};
 			
+			navigation.TargetViewController = this;
+
 			// Create an array of UINavigationControllers that correspond to your
 			// menu items:
 			navigation.ViewControllers = Array.ConvertAll (Tasks, title =>
            		new UINavigationController (new TaskPageController (navigation, title))
 			);
+
 		}
 		
 		class TaskPageController : DialogViewController

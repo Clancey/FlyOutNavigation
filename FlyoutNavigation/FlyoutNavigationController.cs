@@ -65,6 +65,19 @@ namespace FlyoutNavigation
 			}
 		}
 
+		private UIViewController targetViewController;
+
+		public UIViewController TargetViewController
+		{ 
+			get { return this.targetViewController; }
+
+			set 
+			{
+				this.targetViewController = value;
+				this.targetViewController.View.AddGestureRecognizer(new OpenMenuGestureRecognizer(this, new Selector("panned"), this));
+			}
+		}
+
         public FlyoutNavigationController (IntPtr handle) : base(handle)
         {
             Initialize();
@@ -103,7 +116,7 @@ namespace FlyoutNavigation
             };
             AlwaysShowLandscapeMenu = true;
             
-            this.View.AddGestureRecognizer (new OpenMenuGestureRecognizer (this, new Selector ("panned"), this));
+//            this.View.AddGestureRecognizer (new OpenMenuGestureRecognizer (this, new Selector ("panned"), this));
         }
 
 		public event UITouchEventArgs ShouldReceiveTouch;
@@ -234,9 +247,13 @@ namespace FlyoutNavigation
 			
 			setViewSize ();
 			SetLocation (frame);
-			
-			this.View.AddSubview (mainView);
-			this.AddChildViewController (CurrentViewController);
+
+			if (this.TargetViewController != null)
+			{
+				this.TargetViewController.View.AddSubview (mainView);
+				this.TargetViewController.AddChildViewController (CurrentViewController);
+			}
+
 			if (!HideShadow)
 				this.View.InsertSubviewBelow (shadowView, mainView);
 			if (!ShouldStayOpen)
