@@ -354,10 +354,13 @@ namespace FlyoutNavigation
 
 		public void ResignFirstResponders (UIView view)
 		{
-			foreach (var subview in view.Subviews) {
-				if (subview.IsFirstResponder)
-					subview.ResignFirstResponder ();
-				ResignFirstResponders (subview);
+			if(null != view.Subviews)
+			{
+				foreach (var subview in view.Subviews) {
+					if (subview.IsFirstResponder)
+						subview.ResignFirstResponder ();
+					ResignFirstResponders (subview);
+				}
 			}
 		}
 		
