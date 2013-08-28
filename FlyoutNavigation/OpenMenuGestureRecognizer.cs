@@ -35,5 +35,13 @@ namespace FlyoutNavigation
 			};
 		}
 	}
+
+	public class OpenMenuGestureRecognizerDelegate : UIGestureRecognizerDelegate
+	{
+		public override bool ShouldReceiveTouch (UIGestureRecognizer recognizer, UITouch touch)
+		{
+			return true;
+		}
+	}
 }
 

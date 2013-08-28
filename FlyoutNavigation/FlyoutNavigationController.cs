@@ -109,7 +109,9 @@ namespace FlyoutNavigation
             };
             AlwaysShowLandscapeMenu = true;
             
-            this.View.AddGestureRecognizer (new OpenMenuGestureRecognizer (this, new Selector ("panned"), this));
+			this.View.AddGestureRecognizer (new OpenMenuGestureRecognizer (this, new Selector ("panned"), this) {
+				Delegate = new OpenMenuGestureRecognizerDelegate ()
+			});
         }
 
 		public event UITouchEventArgs ShouldReceiveTouch;
