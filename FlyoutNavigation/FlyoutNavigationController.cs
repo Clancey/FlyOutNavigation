@@ -14,11 +14,20 @@
 
 using System;
 using System.Drawing;
+#if __UNIFIED__
+using CoreGraphics;
+using MonoTouch.Dialog;
+using Foundation;
+using ObjCRuntime;
+using UIKit;
+using RectangleF=CoreGraphics.CGRect;
+#else
 using MonoTouch.CoreGraphics;
 using MonoTouch.Dialog;
 using MonoTouch.Foundation;
 using MonoTouch.ObjCRuntime;
 using MonoTouch.UIKit;
+#endif
 
 namespace FlyoutNavigation
 {
@@ -39,7 +48,11 @@ namespace FlyoutNavigation
 		DialogViewController navigation;
 		int selectedIndex;
 		UIView shadowView;
+		#if __UNIFIED__
+		nfloat startX;
+		#else
 		float startX;
+		#endif
 		UIColor tintColor;
 		UIView statusImage;
 		protected UIViewController[] viewControllers;
@@ -265,7 +278,11 @@ namespace FlyoutNavigation
 			navigation.View.Hidden = false;
 			RectangleF frame = mainView.Frame;
 			shadowView.Frame = frame;
+			#if __UNIFIED__
+			nfloat translation = panGesture.TranslationInView(View).X;
+			#else
 			float translation = panGesture.TranslationInView(View).X;
+			#endif
 			if (panGesture.State == UIGestureRecognizerState.Began)
 			{
 				startX = frame.X;
@@ -291,8 +308,13 @@ namespace FlyoutNavigation
 			}
 			else if (panGesture.State == UIGestureRecognizerState.Ended)
 			{
+				#if __UNIFIED__
+				nfloat velocity = panGesture.VelocityInView(View).X;
+				nfloat newX = translation + startX;
+				#else
 				float velocity = panGesture.VelocityInView(View).X;
 				float newX = translation + startX;
+				#endif
 				bool show = Math.Abs (velocity) > sidebarFlickVelocity ? velocity > 0 : newX > (menuWidth / 2);
 				if (Position == FlyOutNavigationPosition.Right) {
 					show = Math.Abs(velocity) > sidebarFlickVelocity ? velocity < 0 : newX < -(menuWidth / 2);
@@ -420,8 +442,11 @@ namespace FlyoutNavigation
 			if (mainView.Frame.Location == frame.Location)
 				return;
 			frame.Size = mainView.Frame.Size;
-			var center = new PointF(frame.Left + frame.Width/2,
-				frame.Top + frame.Height/2);
+			#if __UNIFIED__
+			var center = new PointF((float)(frame.Left + frame.Width/2), (float)(frame.Top + frame.Height/2));
+			#else
+			var center = new PointF(frame.Left + frame.Width/2, frame.Top + frame.Height/2);
+			#endif
 			mainView.Center = center;
 			shadowView.Center = center;
 
@@ -630,7 +655,12 @@ namespace FlyoutNavigation
 		public static UIView SetAccessibilityId(this UIView view, string id)
 		{
 			var nsId = NSString.CreateNative (id);
+			#if __UNIFIED__
+			//throw new NotImplementedException("Messaging");
+			//Messaging.void_objc_msgSend_IntPtr (view.Handle, selAccessibilityIdentifier_Handle, nsId);
+			#else
 			Messaging.void_objc_msgSend_IntPtr (view.Handle, selAccessibilityIdentifier_Handle, nsId);
+			#endif
 			return view;
 		}
 	}
