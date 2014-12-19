@@ -2,8 +2,8 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 using MonoTouch.Dialog;
 
 using FlyoutNavigation;
