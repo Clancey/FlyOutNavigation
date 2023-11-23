@@ -1,58 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BEC8904A-0E39-4117-9E4D-AAE6A6A50B4A}</ProjectGuid>
-    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <OutputType>Library</OutputType>
-    <RootNamespace>FlyoutNavigation</RootNamespace>
-    <AssemblyName>FlyoutNavigation</AssemblyName>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <BaseIntermediateOutputPath>obj\unified</BaseIntermediateOutputPath>
+	<TargetFrameworks>net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>true</ImplicitUsings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>True</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>False</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;__UNIFIED__;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>False</ConsolePause>
-    <GenerateDocumentation>True</GenerateDocumentation>
-    <OutputPath>bin\unified\Debug</OutputPath>
-    <BaseIntermediateOutputPath>obj\unified\</BaseIntermediateOutputPath>
-    <IntermediateOutputPath>obj\unified\AnyCPU\Debug</IntermediateOutputPath>
+    <CreatePackage>false</CreatePackage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <Optimize>False</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>False</ConsolePause>
-    <GenerateDocumentation>True</GenerateDocumentation>
-    <OutputPath>bin\unified\Release</OutputPath>
-    <BaseIntermediateOutputPath>obj\unified\</BaseIntermediateOutputPath>
-    <IntermediateOutputPath>obj\unified\AnyCPU\Release</IntermediateOutputPath>
+    <CreatePackage>false</CreatePackage>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Core" />
-    <Reference Include="Xamarin.iOS" />
-  </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-  <ItemGroup>
-    <Compile Include="OpenMenuGestureRecognizer.cs" />
-    <Compile Include="FlyoutNavigationController.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\MonoTouch.Dialog\MonoTouch.Dialog\MonoTouch.Dialog.csproj">
-      <Project>{3FFBFFF8-5560-4EDE-82E5-3FFDFBBA8A50}</Project>
-      <Name>MonoTouch.Dialog</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\MonoTouch.Dialog\MonoTouch.Dialog\MonoTouch.Dialog.csproj" />
   </ItemGroup>
 </Project>
