@@ -131,8 +131,13 @@ namespace FlyoutNavigation
 
 		public bool GestureIsEnabled
 		{
-			get => openGesture.Enabled;
-			set => openGesture.Enabled = closeGesture.Enabled = value;
+			get => openGesture?.Enabled ?? false;
+			set {
+				if(openGesture!= null)
+					openGesture.Enabled = value;
+				if(openGesture!= null)
+					closeGesture.Enabled = value;
+			}
 		}
 
 		public bool HideShadow
